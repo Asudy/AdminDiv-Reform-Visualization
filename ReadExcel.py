@@ -70,7 +70,7 @@ def getdata(year,provincename,type = ""):
     return Dict
 
 
-def Excel_read(year,provincename):
+def ReadExcel(year,provincename):
     Dict=dict()
     dic1=getdata(year,provincename,'地级市')
     dic2=getdata(year,provincename,'县级市')
@@ -94,12 +94,12 @@ def Excel_read(year,provincename):
     if(other in dic3):
         Dict['市辖区']=dic3[other]
 
-    print(Dict)
+    #print(Dict)
     return Dict
     
 
 # main
 
-dic = dict()
-dic = Excel_read(1983,'福建')
+#dic = dict()
+#dic = ReadExcel(1983,'福建')
 # get data use the year and province name
