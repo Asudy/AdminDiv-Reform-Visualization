@@ -10,5 +10,5 @@ def GetProvinceNamesByYear(year):
     return list_Province[1:]
 
 
-list = GetProvinceNamesByYear(1991)
-print(list)
+#list = GetProvinceNamesByYear(1991)
+#print(list)
