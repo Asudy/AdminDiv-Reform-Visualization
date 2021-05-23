@@ -2,7 +2,7 @@ from numpy import e
 import streamlit as st
 import pandas as pd
 from GetProvinceNamesByYear import GetProvinceNamesByYear
-import ReadExcel
+from ReadExcel import ReadExcel
 
 st.set_page_config(
     page_title = "中国行政区划改革",
@@ -17,7 +17,7 @@ st.title("中国行政区划改革")
 
 ### Set sidebar
 st.sidebar.header("选择年份")
-year = st.sidebar.slider("年份", min_value=1977, max_value=2020, value=1980)
+year = st.sidebar.slider("年份", min_value=1977, max_value=2020, value=1983)
 Provinces = GetProvinceNamesByYear(year)
 st.sidebar.header("选择省份")
 province = st.sidebar.selectbox("省份", Provinces)
@@ -38,24 +38,22 @@ province = st.sidebar.selectbox("省份", Provinces)
 
 
 ## Display info (map && detail)
-st.code("选中年份：{}；视图：；省份：{}；城市：".format(year, province))
+st.code("Debug信息：选中年份：{}；视图：；省份：{}；城市：".format(year, province))
 st.header("所选行政区地图展示")
-# st.image("img/Lenna.png", "行政区划图：{}, {}{}".format(year, province, city))
-# st.image("data/countypoint_1996_湖北省_sample.shp", "行政区划图：{}, {}{}".format(year, province, city))
 try:
-    st.image("img/{}/province/{}.png".format(year, province), caption="行政区划图：{}年, {}".format(year, province))
+    st.image("img/{}/province/{}.png".format(year, province), 
+                caption="行政区划图：{}年, {}".format(year, province))
 except FileNotFoundError as e:
-    st.write("File " + e.filename + " do not exist")
+    st.write("File " + e.filename + " do not exist，将来此处显示最新{}地图".format(province))
 
-changes = ReadExcel.getdata(year, province)
+changes = ReadExcel(year, province)
 
 st.header("行政区划具体变化")
-st.markdown("**{}：**".format(province) + changes['description'])
+st.markdown("**{}：**".format(province) + changes['description'][0][1])
 if len(changes) > 1:
-    st.subheader("地级市")
-    st.write(changes)
-    df = pd.DataFrame(
-        [(k, v) for k, v in changes.items() if k != 'description'],
-        columns = ['类别', '内容']
-    )
-    tb = st.table(df)
+    for k, v in changes.items():
+        if k == 'description': 
+            continue
+        st.subheader(k + '变化')
+        df = pd.DataFrame(v, columns = ['类别', '内容'])
+        st.table(df)    
