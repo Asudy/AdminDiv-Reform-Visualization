@@ -15,13 +15,13 @@ province = {'北京': 0, '天津': 1, '河北': 2, '浙江': 3, '福建': 4, '�
 def getdata(year, provincename, type=""):
     if(type == "县级市"):
         df = pd.read_excel(r"data/县级市.xlsx", index_col=0,
-                           header=1)    # 即指定第一列为行索引,第二行为列索引
+                           header=1, keep_default_na=False)    # 即指定第一列为行索引,第二行为列索引
     elif(type == "地级市" or type == ""):
         df = pd.read_excel(r"data/地级市.xlsx", index_col=0,
-                           header=1)    # 即指定第一列为行索引,第二行为列索引
+                           header=1, keep_default_na=False)    # 即指定第一列为行索引,第二行为列索引
     elif(type == "市辖区"):
         df = pd.read_excel(r"data/市辖区.xlsx", index_col=0,
-                           header=1)    # 即指定第一列为行索引,第二行为列索引
+                           header=1, keep_default_na=False)    # 即指定第一列为行索引,第二行为列索引
 
     # print(df)
     Dict = dict()
@@ -30,6 +30,7 @@ def getdata(year, provincename, type=""):
     # print(data)
 
     # read according to []
+    index = 0
     first = -1
     second = -1
     for index in range(len(data)):
@@ -107,5 +108,6 @@ def ReadExcel(year, provincename):
 # main
 
 #dic = dict()
-#dic = ReadExcel(1983,'福建')
+#dic = ReadExcel(1989,'青海')
+#print(dic)
 # get data use the year and province name
