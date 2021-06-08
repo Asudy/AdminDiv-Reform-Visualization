@@ -1,4 +1,3 @@
-from os import terminal_size
 import streamlit as st
 import pandas as pd
 from GetProvinceNamesByYear import GetProvinceNamesByYear
@@ -46,20 +45,16 @@ except FileNotFoundError:
 changes = ReadExcel(year, province)
 
 st.markdown("**{}：**".format(province) + changes['description'][0][1])
-# st.header("行政区划具体变化")
 if len(changes) > 1:
     st.markdown("<center> <h2> 行政区划具体变化 </h2> </center>", unsafe_allow_html=True)
-    # st.write(changes)
     for k, v in changes.items():
         if k == 'description': 
             continue
-        md = "| 类型 | 内容 |\n| :--: | :-- |\n"
-        st.subheader(k + '变化')
-        for tup in v:
-            md += "| {} | {} |\n".format(
-                # (lambda x: x[:2] + '<br/>' + x[2:])(tup[0]),
-                tup[0],
-                tup[1].replace('\n', ' '))
-        st.markdown(md, unsafe_allow_html=True)
-        # df = pd.DataFrame(v, columns = ['类别', '内容'])
-        # st.table(df)
+        with st.beta_expander(k + '变化'):
+            # st.subheader(k + '变化')
+            md = "| 类型 | 内容 |\n| :--: | :--: |\n"
+            for tup in v:
+                md += "| {} | {} |\n".format(
+                    tup[0],
+                    tup[1].replace('\n', ' '))
+            st.markdown(md)
