@@ -5,16 +5,19 @@ from ReadExcel import ReadExcel
 
 st.set_page_config(
     page_title = "中国行政区划改革",
-    initial_sidebar_state="expanded"
+    page_icon = '🇨🇳',
+    initial_sidebar_state="expanded",
 )
 
 # Provinces = ['福建', '省份1', '省份2', '省份3', '省份4', '省份5']
-Cities = ['厦门', '城市1', '城市2', '城市3', '城市4', '城市5']
+# Cities = ['厦门', '城市1', '城市2', '城市3', '城市4', '城市5']
 
 ### Set title
-st.title("🇨🇳中国行政区划改革")
+st.title("🇨🇳中国行政区划改革（1977~2020）")
 
 ### Set sidebar
+st.sidebar.header("选择功能")
+st.sidebar.radio('', ['具体行政区划变化查询', '行政区划变化统计信息查询'])
 st.sidebar.header("选择年份")
 year = st.sidebar.slider("年份", min_value=1977, max_value=2020, value=1983)
 Provinces = GetProvinceNamesByYear(year)
@@ -51,10 +54,11 @@ if len(changes) > 1:
         if k == 'description': 
             continue
         with st.beta_expander(k + '变化'):
-            # st.subheader(k + '变化')
             md = "| 类型 | 内容 |\n| :--: | :--: |\n"
             for tup in v:
                 md += "| {} | {} |\n".format(
                     tup[0],
                     tup[1].replace('\n', ' '))
             st.markdown(md)
+            st.write('\n')
+        st.write('\n')
