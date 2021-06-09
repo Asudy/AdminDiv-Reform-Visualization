@@ -1,5 +1,6 @@
 import streamlit as st
 from SpecificReform import SelectAndDisplaySingleChange
+from ReformStatistics import DisplayStatistics
 
 if __name__ == "__main__":
 
@@ -9,11 +10,8 @@ if __name__ == "__main__":
         initial_sidebar_state="expanded",
     )
 
-    # Provinces = ['福建', '省份1', '省份2', '省份3', '省份4', '省份5']
-    # Cities = ['厦门', '城市1', '城市2', '城市3', '城市4', '城市5']
-
     ### Set title
-    st.title("🇨🇳中国行政区划改革（1977~2020）")
+    st.title("🇨🇳中国行政区划改革（1978~2020）")
 
     ### Set sidebar
     st.sidebar.header("选择功能")
@@ -23,4 +21,18 @@ if __name__ == "__main__":
     if (func == 0):
         SelectAndDisplaySingleChange()
     else:
-        pass
+        DisplayStatistics()
+        # a, b = st.checkbox('a'), st.checkbox('b')
+        # c = st.checkbox('c')
+        # show_dic = {}
+        # if a:
+        #     show_dic['a'] = {}
+        #     for k, v in zip(range(1978, 1984), [1,2,1,3,1,4]):
+        #         show_dic['a'].update({k: v})
+        #     st.write(show_dic)
+        # if b:
+        #     show_dic['b'] = [2,4,2,7,5,8]
+        # if c:
+        #     # show_dic['c'] = {1978: 1, 1979: 3, 1980: -2, 1981: 4, 1982: 2, 1983: 1}
+        #     show_dic['c'] = {'1978': 1, '1979': 3, '1980': -2, '1981': 4, '1982': 2, '1983': 1}
+        # st.area_chart(show_dic, use_container_width=True)
