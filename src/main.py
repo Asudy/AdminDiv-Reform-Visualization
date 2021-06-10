@@ -8,6 +8,7 @@ if __name__ == "__main__":
         page_title = "中国行政区划改革",
         page_icon = '🇨🇳',
         initial_sidebar_state="expanded",
+        layout='wide'
     )
 
     ### Set title
@@ -15,7 +16,7 @@ if __name__ == "__main__":
 
     ### Set sidebar
     st.sidebar.header("选择功能")
-    func = st.sidebar.radio('', [0, 1], 
+    func = st.sidebar.radio('', [0, 1], index=1, 
         format_func=lambda x: ['具体行政区划变化查询', '行政区划变化统计信息查询'][x])
 
     if (func == 0):
