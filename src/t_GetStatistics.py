@@ -1,8 +1,8 @@
 from random import randint
 
 def _generate_dict(lower: int, upper: int):
-    # yearList = list(map(str, range(1978, 2021)))
-    yearList = list(range(1978, 2021))
+    yearList = list(map(str, range(1978, 2021)))
+    # yearList = list(range(1978, 2021))
     randList = [randint(lower, upper) for _ in range(len(yearList))]
     ret = dict()
     for k, v in zip(yearList, randList):
