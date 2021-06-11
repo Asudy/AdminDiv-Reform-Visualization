@@ -11,6 +11,56 @@ province = {'北京': 0, '天津': 1, '河北': 2, '浙江': 3, '福建': 4, '�
 
 # input year, province name and type
 
+def getFrequency():
+    d = pd.read_excel(r"data/statistics/地级市.xlsx", sheet_name="按年份分", index_col=0,
+                           header=0, keep_default_na=False)
+    #print("输出列标题",d.columns.values)
+    dict1 = dict()
+    for type in d.columns.values:
+        listNum = []
+        dict1[type] = listNum
+    for type in d.columns.values:
+        for i in d.index.values:
+            if(d.loc[i,type]):
+                dict1[type].append(d.loc[i,type])
+            else:
+                dict1[type].append(0)
+
+    d = pd.read_excel(r"data/statistics/市辖区.xlsx", sheet_name="按年份分", index_col=0,
+                           header=0, keep_default_na=False)
+    #print("输出列标题",d.columns.values)
+    dict2 = dict()
+    for type in d.columns.values:
+        listNum = []
+        dict2[type] = listNum
+    for type in d.columns.values:
+        for i in d.index.values:
+            if(d.loc[i,type]):
+                dict2[type].append(d.loc[i,type])
+            else:
+                dict2[type].append(0)
+
+    d = pd.read_excel(r"data/statistics/县级市.xlsx", sheet_name="按年份分", index_col=0,
+                           header=0, keep_default_na=False)
+    #print("输出列标题",d.columns.values)
+    dict3 = dict()
+    for type in d.columns.values:
+        listNum = []
+        dict3[type] = listNum
+    for type in d.columns.values:
+        for i in d.index.values:
+            if(d.loc[i,type]):
+                dict3[type].append(d.loc[i,type])
+            else:
+                dict3[type].append(0)
+
+    dictResult = dict()
+    dictResult['地级市'] = dict1
+    dictResult['市辖区'] = dict2
+    dictResult['县级市'] = dict3
+    #print(dictResult)
+    return dictResult
+    
 
 def getdata(year, provincename, type=""):
     if(type == "县级市"):
@@ -111,3 +161,6 @@ def ReadExcel(year, provincename):
 #dic = ReadExcel(1989,'青海')
 #print(dic)
 # get data use the year and province name
+
+
+#getFrequency()
