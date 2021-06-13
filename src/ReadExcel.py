@@ -5,11 +5,9 @@ import pandas as pd
 # '地级市':[('xxxx','yyyyyyyyyyyyyyyyy'),('xxxx','zzzzzzzzzzzzzzzzzzz')]
 # '县级市':
 
+# the dic of province name and its index
 province = {'北京': 0, '天津': 1, '河北': 2, '浙江': 3, '福建': 4, '上海': 5, '江苏': 6, '山东': 7, '广东': 8, '海南': 9, '山西': 10, '安徽': 11, '江西': 12, '河南': 13, '湖北': 14, '湖南': 15,
             '内蒙古': 16, '广西': 17, '重庆': 18, '四川': 19, '贵州': 20, '云南': 21, '西藏': 22, '陕西': 23, '甘肃': 24, '青海': 25, '宁夏': 26, '新疆': 27, '辽宁': 28, '吉林': 29, '黑龙江': 30}
-# the dic of province name and its index
-
-# input year, province name and type
 
 def getFrequency():
     d = pd.read_excel(r"data/statistics/地级市.xlsx", sheet_name="按年份分", index_col=0,
@@ -62,6 +60,7 @@ def getFrequency():
     return dictResult
     
 
+# input year, province name and type
 def getdata(year, provincename, type=""):
     if(type == "县级市"):
         df = pd.read_excel(r"data/县级市.xlsx", index_col=0,
@@ -156,11 +155,11 @@ def ReadExcel(year, provincename):
 
 
 # main
-
-#dic = dict()
-#dic = ReadExcel(1989,'青海')
-#print(dic)
-# get data use the year and province name
-
-
-#getFrequency()
+if __name__ == '__main__':
+    from pprint import pprint
+    # dic = dict()
+    # dic = ReadExcel(1989,'青海')
+    # print(dic)
+    # get data use the year and province name
+    d = getFrequency()
+    print(d)
