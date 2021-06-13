@@ -1,3 +1,10 @@
+'''
+    File: t_GetStatistics
+
+    Note: This file IS TEMPORARY which generates a random dict 
+    for statistics testing purpose.
+'''
+
 from random import randint
 
 def _generate_dict(lower: int, upper: int):
