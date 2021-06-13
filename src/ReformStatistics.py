@@ -24,8 +24,9 @@ def _reformDict(d: dict) -> dict:
 
 
 def DisplayStatistics():
+    # Set sidebar
     st.sidebar.header('视图')
-    st.sidebar.radio('', ['按省份统计', '按年份统计'], index=1)
+    view = st.sidebar.radio('', ['按省份统计', '按年份统计'], index=1)
     st.sidebar.header('查询行政区划级别')
     level = st.sidebar.radio('', levels)
     
@@ -36,19 +37,24 @@ def DisplayStatistics():
     # st.write(_reformDict(t_dic))
     
     st.header(level)
-    show_dict = dict()
 
     modes = list(stats[level].keys())
     cols = st.beta_columns(len(modes))
 
-    for i in range(len(cols)):
-        key = modes[i]
-        with cols[i]:
-            if st.checkbox(key, key=level + '_' + key):
-                show_dict[key] = stats[level][key]
-    
-    # st.write(show_dict)
-    if len(show_dict):
-        st.line_chart(show_dict, height=200, use_container_width=True)
-        st.area_chart(show_dict, height=200, use_container_width=True)
-        st.bar_chart(show_dict, height=200, use_container_width=True)
+    if view == '按年份统计':
+        show_dict = dict()
+
+        for i in range(len(cols)):
+            key = modes[i]
+            with cols[i]:
+                if st.checkbox(key, key=level + '_' + key):
+                    show_dict[key] = stats[level][key]
+        
+        # st.write(show_dict)
+        if len(show_dict):
+            st.line_chart(show_dict, height=200, use_container_width=True)
+            st.area_chart(show_dict, height=200, use_container_width=True)
+            st.bar_chart(show_dict, height=200, use_container_width=True)
+    else:   # Stat by province
+        mode = st.sidebar.selectbox('选择行政区划变化模式', modes)
+        st.image(f"img/stat/{level}/{mode}.png", caption=f'省份统计图：{level}，{mode}')
