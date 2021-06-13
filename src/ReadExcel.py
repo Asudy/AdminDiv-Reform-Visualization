@@ -161,5 +161,5 @@ if __name__ == '__main__':
     # dic = ReadExcel(1989,'青海')
     # print(dic)
     # get data use the year and province name
-    d = getFrequency()
+    d = GetStatistics()
     print(d)
