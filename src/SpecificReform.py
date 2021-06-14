@@ -1,13 +1,15 @@
 import streamlit as st
 from ReadExcel import ReadExcel
-from GetProvinceNamesByYear import GetProvinceNamesByYear
+from GetProvinceNamesByYear import *
 
 def SelectAndDisplaySingleChange():
     st.sidebar.header("选择年份")
-    year = st.sidebar.slider("年份", min_value=1977, max_value=2020, value=1983)
-    Provinces = GetProvinceNamesByYear(year)
+    year = st.sidebar.slider("", min_value=1977, max_value=2020, 
+        help="拖动滑块选择您想查看的年份，选中滑块后可以使用方向键对年份进行递增或递减。")
+
+    Provinces = GetProvinceNames()
     st.sidebar.header("选择省份")
-    province = st.sidebar.selectbox("省份", Provinces)
+    province = st.sidebar.selectbox("", Provinces)
     ## 只能选省份了，以下代码弃用
     # view = st.sidebar.select_slider("视图", ['国', '省', '市'], value='省')
     # province, city = "", ""
@@ -32,7 +34,8 @@ def SelectAndDisplaySingleChange():
 
     changes = ReadExcel(year, province)
 
-    st.markdown("**{}：**".format(province) + changes['description'][0][1])
+    if changes['description'][0][1]:
+        st.markdown("**{}：**".format(province) + changes['description'][0][1])
     if len(changes) > 1:
         st.markdown("<center> <h2> 行政区划具体变化 </h2> </center>", unsafe_allow_html=True)
         for k, v in changes.items():
@@ -42,7 +45,7 @@ def SelectAndDisplaySingleChange():
                 md = "| 类型 | 内容 |\n| :--: | :--: |\n"
                 for tup in v:
                     md += "| {} | {} |\n".format(
-                        tup[0],
+                        tup[0].replace('降级为市', '降为县级市'),
                         tup[1].replace('\n', ' '))
                 st.markdown(md)
                 st.write('\n')

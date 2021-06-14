@@ -1,11 +1,16 @@
-def GetProvinceNamesByYear(year: int):
-    list_Province = ['海南', '青海', '广东', '河北', '浙江', '福建', '江苏', '山东', '山西', '安徽', '江西', '河南',
-                     '湖北', '湖南', '内蒙古', '广西', '四川', '贵州', '云南', '西藏', '陕西', '甘肃', '宁夏', '新疆', '辽宁', '吉林', '黑龙江']
+list_Province = ['青海', '广东', '河北', '浙江', '福建', '江苏', '山东', '山西', '安徽', '江西', '河南','湖北', '湖南',
+                '内蒙古', '广西', '四川', '贵州', '云南', '西藏', '陕西', '甘肃', '宁夏', '新疆', '辽宁', '吉林', '黑龙江', '海南']
 
+
+def GetProvinceNamesByYear(year: int) -> list:
     if(year >= 1988):
         return list_Province
 
-    return list_Province[1:]
+    return list_Province[:-1]
+
+
+def GetProvinceNames() -> list:
+    return list_Province
 
 
 if __name__ == '__main__':
